@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Liste des Equipes</title>
+	<link rel="stylesheet" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+
+<body>
+	<div th:replace="template"></div>
+	<div class="container mt-5">
+		<div class="card">
+			<div class="card-header">
+				Liste des Equipes
+			</div>
+			<div class="card-body">
+
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>ID Equipe</th>
+							<th>Nom Equipe</th>
+							<th>Budget Annuel</th>
+							<th>Nom Terrain</th>
+							<th>Date Réalisation</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Boucle sur la liste d'équipes (équivalent de 'produits' => 'equipes') -->
+						<tr th:each="e : ${equipes.content}">
+							<td th:text="${e.idEquipe}"></td>
+							<td th:text="${e.nomEquipe}"></td>
+							<td th:text="${e.budgetAnnuel}"></td>
+							<td th:text="${e.nomTerrain}"></td>
+							<!-- Exemple de formatage de la date : -->
+							<td th:text="${e.dateRealisation}"></td>
+							<td><a   class="btn btn-danger" onclick="return confirm('Etes-vous sûr ?')"  th:href="@{supprimerEquipe(id=${e.idEquipe},
+								page=${currentPage},size=${size})}">Supprimer</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<ul class="nav nav-pills">
+					<li th:each="page,status:${pages}">
+						<a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
+							th:href="@{ ListeEquipes(page=${status.index}, size=${size} ) }"
+							th:text="${status.index }"></a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
