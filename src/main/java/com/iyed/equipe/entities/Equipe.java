@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 
 @Entity
@@ -20,6 +21,9 @@ public class Equipe {
 	private double budgetAnnuel ;
 	private String nomTerrain;
     private Date dateRealisation;
+    
+    @ManyToOne 
+    private League league;
     
     
     
@@ -68,6 +72,12 @@ public class Equipe {
 	public String toString() {
 		return "Equipe [idEquipe=" + idEquipe + ", nomEquipe=" + nomEquipe + ", budgetAnnuel=" + budgetAnnuel
 				+ ", nomTerrain=" + nomTerrain + ", dateRealisation=" + dateRealisation + "]";
+	}
+	public League getLeague() {
+		return league;
+	}
+	public void setLeague(League league) {
+		this.league = league;
 	}
     
     
