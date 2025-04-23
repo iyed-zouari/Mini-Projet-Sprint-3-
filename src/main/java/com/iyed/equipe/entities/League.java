@@ -32,33 +32,6 @@ public class League {
 	
 	
 	
-	public League() {
-		super();
-	}
-	public Long getIdLeg() {
-		return idLeg;
-	}
-	public void setIdLeg(Long idLeg) {
-		this.idLeg = idLeg;
-	}
-	public String getNomLeg() {
-		return nomLeg;
-	}
-	public void setNomLeg(String nomLeg) {
-		this.nomLeg = nomLeg;
-	}
-	public String getDescriptionLeg() {
-		return descriptionLeg;
-	}
-	public void setDescriptionLeg(String descriptionLeg) {
-		this.descriptionLeg = descriptionLeg;
-	}
-	public List<Equipe> getEquipes() {
-		return equipes;
-	}
-	public void setEquipes(List<Equipe> equipes) {
-		this.equipes = equipes;
-	}
 
 	
 	

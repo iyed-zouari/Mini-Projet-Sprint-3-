@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+<head>
+	<meta charset="utf-8">
+	<title>Ajout des Equipes</title>
+</head>
+
+<body>
+	<div th:replace="template"></div>
+	<div class="container mt-5">
+		<div class="card">
+			<div class="card-header"> Ajout des Equipes </div>
+			<div class="card-body">
+				<form th:action="@{saveEquipe}" method="post">
+					<div class="form-group">
+						<label class="control-label">Nom Equipe :</label>
+						<input type="text" name="nomEquipe" class="form-control" />
+						<span th:errors= ${equipe.nomEquipe} class="text-danger"> </span>
+
+					</div>
+					<div class="form-group">
+						<label class="control-label">Nom Terrain :</label>
+						<input type="text" name="nomTerrain" class="form-control" />
+						<span th:errors= ${equipe.nomTerrain} class="text-danger"> </spa>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Budget Annuel :</label>
+						<input type="text" name="budgetAnnuel" class="form-control" />
+						<span th:errors= ${equipe.budgetAnnuel} class="text-danger"> </spa>
+
+					</div>
+					<div class="form-group">
+						<label class="control-label">date création :</label>
+						<input type="date" name="dateRealisation" class="form-control" />
+						<span th:errors= ${equipe.dateRealisation} class="text-danger"> </spa>
+
+						
+					</div>
+					<div>
+						<button type="submit" class="btn btn-primary">Valider</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
