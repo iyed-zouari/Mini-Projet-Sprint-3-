@@ -10,11 +10,15 @@ import org.springframework.stereotype.Service;
 import com.iyed.equipe.entities.Equipe;
 import com.iyed.equipe.entities.League;
 import com.iyed.equipe.repos.EquipeRepository;
+import com.iyed.equipe.repos.LeagueRepositort;
 
 @Service
 public class EquipeServiceImpl implements EquipeService {
 	@Autowired
 	EquipeRepository equipeRepository;
+	@Autowired
+	LeagueRepositort leagueRepository;
+
 
 	@Override
 	public Equipe saveEquipe(Equipe e) {
@@ -84,6 +88,12 @@ public class EquipeServiceImpl implements EquipeService {
 	@Override
 	public List<Equipe> trierEquipesNomsPrix() {
 	return equipeRepository.trierEquipesNomsPrix();
+	}
+
+	@Override
+	public List<League> getAllLeagues() {
+		
+		return leagueRepository.findAll();
 	}
 
 

@@ -35,6 +35,7 @@ public interface EquipeRepository extends JpaRepository<Equipe, Long> {
 	List<Equipe> findByLeague (League league);
 	
 	@Query("select e from Equipe e order by e.nomEquipe ASC, e.budgetAnnuel DESC")
-	List<Equipe> trierEquipesNomsPrix ();       
+	List<Equipe> trierEquipesNomsPrix ();    
+	
 	
 }

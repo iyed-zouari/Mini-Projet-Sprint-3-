@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.iyed.equipe.entities.Equipe;
+import com.iyed.equipe.entities.League;
 import com.iyed.equipe.service.EquipeService;
 
 import jakarta.validation.Valid;
@@ -39,17 +40,34 @@ public class EquipeController {
 
 	@RequestMapping("/showCreate")
 	public String showCreate(ModelMap modelMap) {
+		List<League> legs=equipeService.getAllLeagues();
 		modelMap.addAttribute("equipe", new Equipe());
-		return "createEquipe";
+		modelMap.addAttribute("mode", "new");
+		modelMap.addAttribute("league",legs);
+
+		return "formEquipe";
 	}
 
 	@RequestMapping("/saveEquipe")
 	public String saveEquipe(@Valid Equipe equipe,
-			 BindingResult bindingResult)
+			 BindingResult bindingResult,@RequestParam (name="page",defaultValue = "0") int page,
+			 @RequestParam (name="size",defaultValue = "2") int size)
 	{
-	if (bindingResult.hasErrors()) return "createEquipe";
+		int currentPage;
+		boolean isNew = false;
+	if (bindingResult.hasErrors()) return "formEquipe";
+	if (equipe.getIdEquipe()==null) //ajout
+		isNew=true;
 	 equipeService.saveEquipe(equipe);
-	return "createEquipe";
+	 if (isNew) //ajout
+	 {
+	 Page<Equipe> equipes = equipeService.getAllEquipesParPage(page, size);
+	 currentPage = equipes.getTotalPages()-1;
+	 }
+	 else //modif
+		 currentPage=page;
+	//return "formEquipe";
+	 return ("redirect:/ListeEquipes?page="+currentPage+"&size="+size);
 	}
 
 
@@ -72,12 +90,17 @@ public class EquipeController {
 	}
 
 	
-	@RequestMapping("/modifierEquipe")
-	
-	public String editerEquipe(@RequestParam("id") Long id, ModelMap modelMap) {
+	@RequestMapping("/modifierEquipe")	
+	public String editerEquipe(@RequestParam("id") Long id, ModelMap modelMap,@RequestParam (name="page",defaultValue = "0") int page,
+			@RequestParam (name="size", defaultValue = "4") int size) {
 		Equipe e = equipeService.getEquipe(id);
-		modelMap.addAttribute("Equipe", e);
-		return "editerEquipe";
+		List<League> legs=equipeService.getAllLeagues();
+		modelMap.addAttribute("equipe", e);
+		modelMap.addAttribute("mode", "edit");
+		modelMap.addAttribute("league",legs);
+		modelMap.addAttribute("page", page);
+		modelMap.addAttribute("size", size);
+		return "formEquipe";
 	}
 
 	@RequestMapping("/updateEquipe")

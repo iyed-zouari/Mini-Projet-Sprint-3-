@@ -23,6 +23,7 @@ public interface EquipeService {
 	List<Equipe> findByLeagueIdLeg(Long id);
 	List<Equipe> findByOrderByNomEquipeAsc();
 	List<Equipe> trierEquipesNomsPrix();
+	List<League> getAllLeagues();
 	
 
 }
