@@ -10,34 +10,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.iyed.equipe.dto.EquipeDTO;
 import com.iyed.equipe.entities.Equipe;
 import com.iyed.equipe.service.EquipeService;
 
 @RestController
-@RequestMapping("/custom-api")
+@RequestMapping("custom-api")
 @CrossOrigin
 public class EquipeRESTController {
 	@Autowired
 	EquipeService equipeService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Equipe> getAllEquipes() {
+	public List<EquipeDTO> getAllEquipes() {
 		return equipeService.getAllEquipes();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Equipe getEquipeById(@PathVariable("id") Long id) {
+	public EquipeDTO getEquipeById(@PathVariable("id") Long id) {
 		return equipeService.getEquipe(id);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public Equipe createProduit(@RequestBody Equipe equipe) {
-		return equipeService.saveEquipe(equipe);
+	public EquipeDTO createEquipe(@RequestBody EquipeDTO equipeDTO) {
+		return equipeService.saveEquipe(equipeDTO);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-	public Equipe updateEquipe(@RequestBody Equipe equipe) {
-		return equipeService.updateEquipe(equipe);
+	public EquipeDTO updateEquipe(@RequestBody EquipeDTO equipeDTO) {
+		return equipeService.updateEquipe(equipeDTO);
 	}
 	
 	@RequestMapping(value="/{id}",method = RequestMethod.DELETE)

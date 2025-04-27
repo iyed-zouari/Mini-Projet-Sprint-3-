@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.iyed.equipe.dto.EquipeDTO;
 import com.iyed.equipe.entities.Equipe;
 import com.iyed.equipe.entities.League;
 import com.iyed.equipe.service.EquipeService;
@@ -55,7 +56,7 @@ public class EquipeController {
 	}
 
 	@RequestMapping("/saveEquipe")
-	public String saveEquipe(@Valid Equipe equipe,
+	public String saveEquipe(@Valid EquipeDTO equipe,
 			 BindingResult bindingResult,@RequestParam (name="page",defaultValue = "0") int page,
 			 @RequestParam (name="size",defaultValue = "2") int size)
 	{
@@ -99,7 +100,7 @@ public class EquipeController {
 	@RequestMapping("/modifierEquipe")	
 	public String editerEquipe(@RequestParam("id") Long id, ModelMap modelMap,@RequestParam (name="page",defaultValue = "0") int page,
 			@RequestParam (name="size", defaultValue = "4") int size) {
-		Equipe e = equipeService.getEquipe(id);
+		EquipeDTO e = equipeService.getEquipe(id);
 		List<League> legs=equipeService.getAllLeagues();
 		modelMap.addAttribute("equipe", e);
 		modelMap.addAttribute("mode", "edit");
@@ -110,14 +111,14 @@ public class EquipeController {
 	}
 
 	@RequestMapping("/updateEquipe")
-	public String updateEquipe(@ModelAttribute("equipe") Equipe equipe, @RequestParam("date") String date,ModelMap modelMap) throws ParseException {
+	public String updateEquipe(@ModelAttribute("equipe") EquipeDTO equipe, @RequestParam("date") String date,ModelMap modelMap) throws ParseException {
 		// conversion de la date
 		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 		Date dateCreation = dateformat.parse(String.valueOf(date));
 		equipe.setDateRealisation(dateCreation);
 
 		equipeService.updateEquipe(equipe);
-		List<Equipe> prods = equipeService.getAllEquipes();
+		List<EquipeDTO> prods = equipeService.getAllEquipes();
 		modelMap.addAttribute("equipes", prods);
 		return "listeProduits";
 	}
